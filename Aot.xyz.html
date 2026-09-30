@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Until the Very End — For My Mikasa</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;600&display=swap');
+
+        :root {
+            --red: #9e1b32;
+            --dark-red: #5f0f20;
+            --gold: #d9b36c;
+            --paper: #d8c9a4;
+            --ink: #17130f;
+            --black: #070707;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--black);
+            color: #eee;
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Dark cinematic overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 50;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    transparent 35%,
+                    rgba(0, 0, 0, 0.85) 120%
+                );
+        }
+
+        /* =========================
+           SCREEN SYSTEM
+        ========================== */
+
+        .screen {
+            min-height: 100vh;
+            display: none;
+            position: relative;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        .screen.active {
+            display: flex;
+
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(1.025);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================== */
+
+        .bg {
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.45),
+                    rgba(0, 0, 0, 0.92)
+                ),
+                url("YOUR_BACKGROUND_IMAGE_HERE.jpg")
+                center / cover;
+
+            filter:
+                sepia(0.25)
+                contrast(1.15);
+        }
+
+        /* =========================
+           CONTENT
+        ========================== */
+
+        .content {
+            position: relative;
+            z-index: 2;
+
+            width: 100%;
+            max-width: 800px;
+
+            text-align: center;
+        }
+
+        .kicker {
+            color: var(--gold);
+
+            font-size: 12px;
+            letter-spacing: 5px;
+
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2 {
+            font-family: "Cinzel", serif;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            margin: 18px 0;
+
+            font-size:
+                clamp(42px, 9vw, 86px);
+        }
+
+        h2 {
+            font-size:
+                clamp(30px, 6vw, 52px);
+        }
+
+        p {
+            color: #ddd;
+
+            line-height: 1.9;
+        }
+
+        .quote {
+            font-family: "Cinzel", serif;
+
+            font-size: 21px;
+            line-height: 1.9;
+        }
+
+        .small-quote {
+            color: #c8b88f;
+
+            font-family: "Cinzel", serif;
+
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           BUTTONS
+        ========================== */
+
+        button {
+            margin: 10px;
+
+            padding: 14px 24px;
+
+            color: #eee;
+            background: transparent;
+
+            border: 1px solid var(--gold);
+
+            cursor: pointer;
+
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            transition:
+                0.25s ease;
+        }
+
+        button:hover {
+            background: rgba(158, 27, 50, 0.25);
+
+            transform:
+                translateY(-2px);
+        }
+
+        /* =========================
+           AOT CORNERS
+        ========================== */
+
+        .corner {
+            position: absolute;
+
+            width: 55px;
+            height: 55px;
+
+            border-color: var(--gold);
+
+            opacity: 0.7;
+        }
+
+        .tl {
+            top: 25px;
+            left: 25px;
+
+            border-top: 1px solid;
+            border-left: 1px solid;
+        }
+
+        .tr {
+            top: 25px;
+            right: 25px;
+
+            border-top: 1px solid;
+            border-right: 1px solid;
+        }
+
+        .bl {
+            bottom: 25px;
+            left: 25px;
+
+            border-bottom: 1px solid;
+            border-left: 1px solid;
+        }
+
+        .br {
+            bottom: 25px;
+            right: 25px;
+
+            border-bottom: 1px solid;
+            border-right: 1px solid;
+        }
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .card {
+            margin: 12px;
+
+            padding: 28px;
+
+            background:
+                rgba(21, 21, 21, 0.88);
+
+            border:
+                1px solid #6d5a3a;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+
+            gap: 12px;
+
+            text-align: left;
+        }
+
+        .line {
+            height: 1px;
+
+            margin: 25px 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #a98955,
+                    transparent
+                );
+        }
+
+        /* =========================
+           SCARF
+        ========================== */
+
+        .scarf {
+            font-size: 55px;
+
+            animation:
+                scarfFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes scarfFloat {
+            0% {
+                transform:
+                    translateX(0)
+                    rotate(0deg);
+            }
+
+            50% {
+                transform:
+                    translateX(25px)
+                    rotate(-4deg);
+            }
+
+            100% {
+                transform:
+                    translateX(0)
+                    rotate(0deg);
+            }
+        }
+
+        /* =========================
+           PHOTO HOLDERS
+        ========================== */
+
+        .photo {
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            aspect-ratio: 4 / 3;
+
+            overflow: hidden;
+
+            background: #111;
+
+            border:
+                1px dashed #9b8357;
+
+            color: #8e805f;
+
+            text-align: center;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .photo input {
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            opacity: 0;
+
+            cursor: pointer;
+        }
+
+        /* =========================
+           MEMORY CARDS
+        ========================== */
+
+        .memory {
+            cursor: pointer;
+
+            transition:
+                0.25s ease;
+        }
+
+        .memory:hover {
+            transform:
+                translateY(-3px);
+
+            border-color:
+                var(--gold);
+        }
+
+        .memory p {
+            display: none;
+        }
+
+        .memory.open p {
+            display: block;
+
+            animation:
+                fadeIn 0.4s ease;
+        }
+
+        /* =========================
+           MUSIC
+        ========================== */
+
+        .music {
+            position: fixed;
+
+            left: 14px;
+            bottom: 14px;
+
+            z-index: 100;
+        }
+
+        .music input {
+            display: none;
+        }
+
+        .music label {
+            display: inline-block;
+
+            padding: 10px 13px;
+
+            background:
+                rgba(7, 7, 7, 0.85);
+
+            border:
+                1px solid #8f7750;
+
+            cursor: pointer;
+
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================== */
+
+        .controls {
+            position: fixed;
+
+            right: 14px;
+            bottom: 14px;
+
+            z-index: 100;
+
+            display: flex;
+            gap: 6px;
+        }
+
+        .controls button {
+            margin: 0;
+
+            padding: 10px 15px;
+        }
+
+        /* =========================
+           FINAL PAGE
+        ========================== */
+
+        #final {
+            max-width: 900px;
+        }
+
+        .final-title {
+            font-size:
+                clamp(32px, 7vw, 68px);
+        }
+
+        .dedication {
+            color: var(--gold);
+
+            font-family: "Cinzel", serif;
+
+            font-size: 24px;
+
+            letter-spacing: 3px;
+        }
+
+        .signature {
+            color: #aaa;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+        }
+
+        small {
+            color: #91866f;
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 600px) {
+            .screen {
+                padding:
+                    70px 18px;
+            }
+
+            .corner {
+                width: 35px;
+                height: 35px;
+            }
+
+            .tl,
+            .tr {
+                top: 15px;
+            }
+
+            .bl,
+            .br {
+                bottom: 15px;
+            }
+
+            .tl,
+            .bl {
+                left: 15px;
+            }
+
+            .tr,
+            .br {
+                right: 15px;
+            }
+
+            .quote {
+                font-size: 18px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         MUSIC
+    ========================== -->
+
+<audio id="music" src="Music.mp3" loop></audio>
+
+<div class="music">
+    <button onclick="toggleMusic()">♪ PLAY MUSIC</button>
+</div>
+
+    <!-- =========================
+         PAGE 1 — OPENING
+    ========================== -->
+
+    <section
+        class="screen active"
+        id="s1">
+
+        <div class="bg"></div>
+
+        <i class="corner tl"></i>
+        <i class="corner tr"></i>
+        <i class="corner bl"></i>
+        <i class="corner br"></i>
+
+        <div class="content">
+
+            <div class="kicker">
+                A little world, just for you
+            </div>
+
+            <div class="scarf">
+                🧣
+            </div>
+
+            <h1>
+                Until the Very End
+            </h1>
+
+            <p class="quote">
+                “Hey… you.<br>
+                I made something for you.”
+            </p>
+
+            <button onclick="go(2)">
+                Begin
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PAGE 2 — APOLOGY LETTER
+    ========================== -->
+
+    <section
+        class="screen"
+        id="s2">
+
+        <div class="bg"></div>
+
+        <div class="content">
+
+            <div class="kicker">
+                Chapter I · I'm sorry
+            </div>
+
+            <h2>
+                Before anything else…
+            </h2>
+
+            <div class="card">
+
+                <p>
+                    I know things between us got messy,
+                    and I'm sorry for my part in that.
+                </p>
+
+                <p>
+                    I don't want this little gift to erase
+                    what happened or pretend everything was okay.
+                    I just want you to know that one bad moment
+                    never made you less precious to me.
+                </p>
+
+                <div class="line"></div>
+
+                <p class="quote">
+                    “Ik sometimes am angry at u,
+                    like Eren at Mikasa sometimes.
+                    I sometimes hurt u unintentionally,
+                    like Eren.
+                    Sometimes I'm rude to u,
+                    like Eren to u.
+                </p>
+
+                <p class="quote">
+                    But u are always there for me,
+                    helping me,
+                    making me happy,
+                    like Mikasa to Eren. 🙃
+                </p>
+
+                <p class="quote">
+                    I'm literally ur Eren babe,
+                    ur my Mikasa. 💖
+                </p>
+
+                <p class="quote">
+                    Please forgive ur Eren. 😭
+                </p>
+
+            </div>
+
+            <button onclick="go(3)">
+                Keep going →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PAGE 3 — DIALOGUES
+    ========================== -->
+
+    <section
+        class="screen"
+        id="s3">
+
+        <div class="bg"></div>
+
+        <div class="content">
+
+            <div class="kicker">
+                Chapter II · If I could choose again
+            </div>
+
+            <h2>
+                I'd still find you.
+            </h2>
+
+            <div class="card">
+
+                <p class="quote">
+                    “Even if I had to live this life
+                    over and over again,
+                    I'd still find my way back to you.”
+                </p>
+
+            </div>
+
+            <div class="grid">
+
+                <div class="card">
+
+                    <b>
+                        🧣
+                    </b>
+
+                    <p class="small-quote">
+                        “I want you to be my one and only
+                        for the rest of my life.”
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <b>
+                        🌙
+                    </b>
+
+                    <p class="small-quote">
+                        “Sore demo kimi wo aisu yo.”
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <b>
+                        🥀
+                    </b>
+
+                    <p class="small-quote">
+                        “I'd literally start The Rumbling
+                        and destroy the rest of the world
+                        just to make sure you're safe.”
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <b>
+                        ❤️
+                    </b>
+
+                    <p class="small-quote">
+                        “Sekai wo zankokuda 🫠”
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button onclick="go(4)">
+                Our memories →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PAGE 4 — PHOTOS
+    ========================== -->
+
+    <section
+        class="screen"
+        id="s4">
+
+        <div class="bg"></div>
+
+        <div class="content">
+
+            <div class="kicker">
+                Chapter III · Our little memories
+            </div>
+
+            <h2>
+                A place for us
+            </h2>
+
+            <p>
+                Tap a photo box and choose a picture
+                from your phone.
+            </p>
+
+
+            <div class="grid">
+
+                <div class="photo">
+
+                    <span>
+                        OUR PHOTO 01
+                    </span>
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onchange="pic(this)">
+
+                </div>
+
+
+                <div class="photo">
+
+                    <span>
+                        OUR PHOTO 02
+                    </span>
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onchange="pic(this)">
+
+                </div>
+
+
+                <div class="photo">
+
+                    <span>
+                        OUR PHOTO 03
+                    </span>
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onchange="pic(this)">
+
+                </div>
+
+
+                <div class="photo">
+
+                    <span>
+                        OUR PHOTO 04
+                    </span>
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onchange="pic(this)">
+
+                </div>
+
+            </div>
+
+
+            <button onclick="go(5)">
+                There's more →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PAGE 5 — MEMORIES
+    ========================== -->
+
+    <section
+        class="screen"
+        id="s5">
+
+        <div class="bg"></div>
+
+        <div class="content">
+
+            <div class="kicker">
+                Chapter IV · Things I never want you to forget
+            </div>
+
+            <h2>
+                Open them.
+            </h2>
+
+
+            <div class="grid">
+
+                <div
+                    class="card memory"
+                    onclick="this.classList.toggle('open')">
+
+                    <b>
+                        01 · You matter.
+                    </b>
+
+                    <p>
+                        More than one argument,
+                        one night,
+                        or one bad moment.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="card memory"
+                    onclick="this.classList.toggle('open')">
+
+                    <b>
+                        02 · Distance isn't the end.
+                    </b>
+
+                    <p>
+                        It only makes every little moment
+                        together feel more valuable.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="card memory"
+                    onclick="this.classList.toggle('open')">
+
+                    <b>
+                        03 · I'm not perfect.
+                    </b>
+
+                    <p>
+                        But what I feel for you is real,
+                        and I want to keep learning
+                        how to love you better.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="card memory"
+                    onclick="this.classList.toggle('open')">
+
+                    <b>
+                        04 · One last thing…
+                    </b>
+
+                    <p>
+                        I'm still ridiculously,
+                        hopelessly in love with you. 🤍
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button onclick="go(6)">
+                Final chapter →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PAGE 6 — FINAL
+    ========================== -->
+
+    <section
+        class="screen"
+        id="s6">
+
+        <div class="bg"></div>
+
+        <div class="content" id="final">
+
+            <div class="kicker">
+                The final page
+            </div>
+
+
+            <h2>
+                I don't know what tomorrow looks like…
+            </h2>
+
+
+            <p class="quote">
+                But if you're willing,
+                <br>
+                I'd like to keep walking beside you.
+            </p>
+
+
+            <div class="line"></div>
+
+
+            <p class="quote">
+                “Even if I had to live this life
+                over and over again,
+                I'd still find my way back to you.”
+            </p>
+
+
+            <div class="line"></div>
+
+
+            <h1 class="final-title">
+                Idwhtfseiwbhoaoleisdgomitisthtyal
+            </h1>
+
+
+            <p class="quote">
+                “From now on and forever,
+                I'll always wrap the scarf around you.”
+                🧣
+            </p>
+
+
+            <div class="line"></div>
+
+
+            <p class="dedication">
+                For my Mikasa
+            </p>
+
+
+            <p class="signature">
+                — Vinit
+            </p>
+
+
+            <button onclick="go(1)">
+                Read it again ↺
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <div class="controls">
+
+        <button onclick="prev()">
+            ←
+        </button>
+
+        <button onclick="next()">
+            →
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        let current = 1;
+
+
+        /* =========================
+           PAGE NAVIGATION
+        ========================== */
+
+        function go(number) {
+
+            document
+                .getElementById("s" + current)
+                .classList
+                .remove("active");
+
+
+            current = number;
+
+
+            document
+                .getElementById("s" + current)
+                .classList
+                .add("active");
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+
+        function next() {
+
+            if (current < 6) {
+                go(current + 1);
+            } else {
+                go(1);
+            }
+        }
+
+
+        function prev() {
+
+            if (current > 1) {
+                go(current - 1);
+            } else {
+                go(6);
+            }
+        }
+
+
+        /* =========================
+           PHOTO UPLOAD
+        ========================== */
+
+        function pic(input) {
+
+            const box = input.parentElement;
+            const file = input.files[0];
+
+
+            if (!file) {
+                return;
+            }
+
+
+            const imageURL =
+                URL.createObjectURL(file);
+
+
+            box.innerHTML = `
+                <img src="${imageURL}" alt="Our memory">
+            `;
+        }
+
+
+        /* =========================
+           MUSIC UPLOAD
+        ========================== */
+
+const music = 
+document.getElementById("music");
+
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+
+        /* =========================
+           KEYBOARD NAVIGATION
+        ========================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "ArrowRight") {
+                    next();
+                }
+
+
+                if (event.key === "ArrowLeft") {
+                    prev();
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
